@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import vcmsa.projects.l03_learningunit4.databinding.ActivityMainBinding
+import vcmsa.projects.l03_learningunit4.databinding.ActivityMainWithNavDrawerBinding
 
 //the View.OnClickListener we added on the ffg line and created its separate class at the bottom
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         helloMsg?.text = "Hello from old method!"
 
         //Using Viewbinding: New method
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityMainWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
