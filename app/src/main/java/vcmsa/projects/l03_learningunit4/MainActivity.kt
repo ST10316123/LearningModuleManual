@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -32,10 +33,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //this we write after adding the intents
     var order = Order()
 
+    private lateinit var binding: ActivityMainWithNavDrawerBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+
 
 //        //Still part of old method
 //        // Initialize your ImageViews using findViewById
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val binding = ActivityMainWithNavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        enableEdgeToEdge()
 
         //This line of code overrides the xml file where the text is just "Hello World"
         binding.hellomsg.text = "Hello! From the view binding side"
@@ -94,7 +96,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
+        setSupportActionBar(binding.navToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        var toggleOnOff = ActionBarDrawerToggle(this,
+            binding.drawerLayout, binding.navToolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close)
+        binding.drawerLayout.addDrawerListener(toggleOnOff)
+        toggleOnOff.syncState()
 
+        binding.navView.bringToFront()
+        binding.navView.setNavigationItemSelectedListener(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
